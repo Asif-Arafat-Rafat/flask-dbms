@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{filename}}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <h1>
         here i want to show the data from {{file[0]}}
     </h1>
     <pre>
-        {%for i in file[1][0]%}
-            {{i}}
-        {%endfor%}
-        {%for i in file[2]%}
-            {{i[1]}}
-        {%endfor%}
-        
-        
+    {% for i in range(file[1][0]|length) %}
+        <h2>{{ file[1][0][i] }}</h2>
+        <table>
+            {%for j in file[1][1][i]%}
+                <th>{{ j[0] }}</th>
+            {% endfor %}
+        </table>
+    {% endfor %}
+    
     </pre>
 </body>
 </html>

@@ -1,18 +1,27 @@
 import re
 
 def extract_table_data(content):
+  info=[]
   table_info = re.findall(r"CREATE TABLE `(\w+)` \(?(.*?)\s+(.*?);", content,re.DOTALL)
-  
-  table_name=table_info[0]
-  table_column=re.findall(r"(.*)\s*,?",table_info[0][2])
-  print(f"Table Name:{table_column}")
-  column_data=re.findall(r"(\w+)",table_column[0].strip(" "))
-  not_what=re.findall(r"NOT\s*(\w+)",table_column[0],re.DOTALL)
-  key=re.findall(r"(\w+)\*KEY",table_column[0])
-  print(f"Not:{not_what}")
-  print(f"Table Name:{column_data}")
-  
-  fpk(content)
+  for t in range(len(table_info)):
+    td={}
+    table_name=re.findall(r"(.*)\s*,?",table_info[t][0])
+    table_column=re.findall(r"(.*)\s*,?",table_info[t][2])
+    col_data=re.findall(r"(\w+)(?:\((\d+)\))?",table_column[0])
+    
+    formater=[(name,size) if size else name for name,size in col_data]
+    print(f"Column Data:{formater}")
+    td['Table Name']=table_name[0]
+    td['Table Columns']=table_column[0]
+    info.append(td)
+  print(f"Table Info:{info}\n")
+#   for t in range(len(table_column)):
+    # column_data=re.findall(r"(\w+)",table_column[t].strip(" "))
+    # print(f"Column Data:{column_data}")
+#   not_what=re.findall(r"NOT\s*(\w+)",table_column[0],re.DOTALL)
+#   print(f"Not:{not_what}")
+#   key=re.findall(r"(\w+)\*KEY",table_column[0])
+#   fpk(content)
   
   rdata=[]
   tableName=[]
@@ -35,8 +44,8 @@ def insertData(tab,content):
   print(f"Column:{column}")
   print(f"Values:{values}")
   
-insertData('admin',"""INSERT INTO `admin` (`admin_id`, `username`, `password`) VALUES
-(1, 'rafat', '@sif');""")
+# insertData('admin',"""INSERT INTO `admin` (`admin_id`, `username`, `password`) VALUES
+# (1, 'rafat', '@sif');""")
 
 def fpk(content):
   pk=re.findall(r"TABLE `(\w+)`\s*.*?\s*(\w+)\s*KEY\s*\(`(\w+)",content,re.DOTALL)

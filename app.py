@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_sqlalchemy import SQLAlchemy
 import os
 import re
-from retable import extract_table_data,extract_row_data
+from retable2 import extract_table_data,extract_row_data
 
 app = Flask(__name__)
 app.secret_key='secret'
@@ -34,10 +34,7 @@ def view(filename):
     sql_path=os.path.join('./uploads',filename)
     sql_content=read_sql_file(sql_path)
     data=extract_table_data(sql_content)
-    tdata=[]
-    for i in  data:
-        tdata.append(type(i))
-    file=[filename,data,tdata]
+    file=[filename,data]
     return render_template('view.html',file=file)
 
 
