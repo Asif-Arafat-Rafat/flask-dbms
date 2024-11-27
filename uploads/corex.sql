@@ -27,18 +27,18 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
-CREATE TABLE `admin` (
-  `admin_id` int(11) NOT NULL,
-  `username` text NOT NULL,
-  `password` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- CREATE TABLE `admin` (
+--   `admin_id` int(11) NOT NULL,
+--   `username` text NOT NULL,
+--   `password` text NOT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`admin_id`, `username`, `password`) VALUES
-(1, 'rafat', '@sif');
+-- INSERT INTO `admin` (`admin_id`, `username`, `password`) VALUES
+-- (1, 'rafat', '@sif');
 
 -- --------------------------------------------------------
 
@@ -46,27 +46,27 @@ INSERT INTO `admin` (`admin_id`, `username`, `password`) VALUES
 -- Table structure for table `carousel`
 --
 
-CREATE TABLE `carousel` (
-  `id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `front_image` text NOT NULL,
-  `left_image` text NOT NULL,
-  `right_image` text NOT NULL,
-  `title` text NOT NULL,
-  `sub_title` text NOT NULL,
-  `extra_info` text NOT NULL,
-  `added` date NOT NULL,
-  `position` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- CREATE TABLE `carousel` (
+--   `id` int(11) NOT NULL,
+--   `name` text NOT NULL,
+--   `front_image` text NOT NULL,
+--   `left_image` text NOT NULL,
+--   `right_image` text NOT NULL,
+--   `title` text NOT NULL,
+--   `sub_title` text NOT NULL,
+--   `extra_info` text NOT NULL,
+--   `added` date NOT NULL,
+--   `position` int(11) NOT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `carousel`
 --
 
-INSERT INTO `carousel` (`id`, `name`, `front_image`, `left_image`, `right_image`, `title`, `sub_title`, `extra_info`, `added`, `position`) VALUES
-(1, 'Router', 'front.png', 'left.png', 'right.png', 'Stay Connected, Study Better', 'Strong signal, strong results.', 'Uninterrupted learning and fun, all day long', '2024-09-23', 1),
-(3, 'Fan', 'fan_front.png', 'fan_left.png', 'fan_right.png', 'Stay Cool, Stay Focused', 'Quiet comfort for your study sessions', 'Beat the heat and stay productive', '2024-09-23', 2),
-(4, 'Bulb', 'bulb.png', 'bulb-left.png', 'bulb-right.png', 'bulb', 'light', 'bright', '2024-09-23', 2);
+-- INSERT INTO `carousel` (`id`, `name`, `front_image`, `left_image`, `right_image`, `title`, `sub_title`, `extra_info`, `added`, `position`) VALUES
+-- (1, 'Router', 'front.png', 'left.png', 'right.png', 'Stay Connected, Study Better', 'Strong signal, strong results.', 'Uninterrupted learning and fun, all day long', '2024-09-23', 1),
+-- (3, 'Fan', 'fan_front.png', 'fan_left.png', 'fan_right.png', 'Stay Cool, Stay Focused', 'Quiet comfort for your study sessions', 'Beat the heat and stay productive', '2024-09-23', 2),
+-- (4, 'Bulb', 'bulb.png', 'bulb-left.png', 'bulb-right.png', 'bulb', 'light', 'bright', '2024-09-23', 2);
 
 -- --------------------------------------------------------
 
@@ -74,14 +74,14 @@ INSERT INTO `carousel` (`id`, `name`, `front_image`, `left_image`, `right_image`
 -- Table structure for table `cart`
 --
 
-CREATE TABLE `cart` (
-  `cart_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `per_price` float NOT NULL,
-  `total_price` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- CREATE TABLE `cart` (
+--   `cart_id` int(11) NOT NULL,
+--   `user_id` int(11) NOT NULL,
+--   `product_id` int(11) NOT NULL,
+--   `quantity` int(11) NOT NULL,
+--   `per_price` float NOT NULL,
+--   `total_price` float NOT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -105,8 +105,8 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `user_id`, `order_date`, `status`, `total_price`, `payment_method`, `delivery_address`, `phone_number`, `delivery_time`) VALUES
-(2, 1, '2024-10-20 15:23:03', 1, 8.00, NULL, 'kuet', '017278356', NULL);
+-- INSERT INTO `orders` (`order_id`, `user_id`, `order_date`, `status`, `total_price`, `payment_method`, `delivery_address`, `phone_number`, `delivery_time`) VALUES
+-- (2, 1, '2024-10-20 15:23:03', 1, 8.00, NULL, 'kuet', '017278356', NULL);
 
 -- --------------------------------------------------------
 
@@ -114,21 +114,21 @@ INSERT INTO `orders` (`order_id`, `user_id`, `order_date`, `status`, `total_pric
 -- Table structure for table `order_items`
 --
 
-CREATE TABLE `order_items` (
-  `order_item_id` int(11) NOT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `price_per_item` decimal(10,2) DEFAULT NULL,
-  `total_price` decimal(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- CREATE TABLE `order_items` (
+--   `order_item_id` int(11) NOT NULL,
+--   `order_id` int(11) DEFAULT NULL,
+--   `product_id` int(11) DEFAULT NULL,
+--   `quantity` int(11) DEFAULT NULL,
+--   `price_per_item` decimal(10,2) DEFAULT NULL,
+--   `total_price` decimal(10,2) DEFAULT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`, `price_per_item`, `total_price`) VALUES
-(1, 2, 1, 4, 2.00, 8.00);
+-- INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`, `price_per_item`, `total_price`) VALUES
+-- (1, 2, 1, 4, 2.00, 8.00);
 
 -- --------------------------------------------------------
 
@@ -136,21 +136,21 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`
 -- Table structure for table `pc_repair`
 --
 
-CREATE TABLE `pc_repair` (
-  `query_id` int(11) NOT NULL,
-  `phone_number` text NOT NULL,
-  `urgency` text DEFAULT NULL,
-  `components` text DEFAULT NULL,
-  `details` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- CREATE TABLE `pc_repair` (
+--   `query_id` int(11) NOT NULL,
+--   `phone_number` text NOT NULL,
+--   `urgency` text DEFAULT NULL,
+--   `components` text DEFAULT NULL,
+--   `details` text DEFAULT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pc_repair`
 --
 
-INSERT INTO `pc_repair` (`query_id`, `phone_number`, `urgency`, `components`, `details`) VALUES
-(1, '01839497606', '24', 'Desktop', 'hello'),
-(2, '01839497606', '12', 'Desktop', 'testing');
+-- INSERT INTO `pc_repair` (`query_id`, `phone_number`, `urgency`, `components`, `details`) VALUES
+-- (1, '01839497606', '24', 'Desktop', 'hello'),
+-- (2, '01839497606', '12', 'Desktop', 'testing');
 
 -- --------------------------------------------------------
 
@@ -158,35 +158,44 @@ INSERT INTO `pc_repair` (`query_id`, `phone_number`, `urgency`, `components`, `d
 -- Table structure for table `products`
 --
 
-CREATE TABLE `products` (
-  `product_id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `image` text NOT NULL,
-  `category` text NOT NULL,
-  `brand` text NOT NULL,
-  `description` text NOT NULL,
-  `stock` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
-  `b_price` int(11) NOT NULL,
-  `discount` int(11) DEFAULT NULL,
-  `sold` int(11) DEFAULT NULL,
-  `voted` int(11) DEFAULT NULL,
-  `score` int(11) DEFAULT NULL,
-  `varients` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- CREATE TABLE `products` (
+--   `product_id` int(11) NOT NULL,
+--   `name` text NOT NULL,
+--   `image` text NOT NULL,
+--   `category` text NOT NULL,
+--   `brand` text NOT NULL,
+--   `description` text NOT NULL,
+--   `stock` int(11) NOT NULL,
+--   `price` int(11) NOT NULL,
+--   `b_price` int(11) NOT NULL,
+--   `discount` int(11) DEFAULT NULL,
+--   `sold` int(11) DEFAULT NULL,
+--   `voted` int(11) DEFAULT NULL,
+--   `score` int(11) DEFAULT NULL,
+--   `varients` int(11) DEFAULT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `name`, `image`, `category`, `brand`, `description`, `stock`, `price`, `b_price`, `discount`, `sold`, `voted`, `score`, `varients`) VALUES
-(1, 't1', 'keyboard1.png', 'Keyboard', 'Unknown', 'sme', 2, 2, 1, NULL, NULL, NULL, NULL, NULL);
+-- INSERT INTO `products` (`product_id`, `name`, `image`, `category`, `brand`, `description`, `stock`, `price`, `b_price`, `discount`, `sold`, `voted`, `score`, `varients`) VALUES
+-- (1, 't1', 'keyboard1.png', 'Keyboard', 'Unknown', 'sme', 2, 2, 1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `user`
 --
+CREATE TABLE `Users` (
+    id1 INT AUTO_INCREMENT PRIMARY KEY,        
+    username VARCHAR(50) NOT NULL UNIQUE,     
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    is_active BOOLEAN DEFAULT TRUE
+);
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
@@ -195,7 +204,7 @@ CREATE TABLE `user` (
   `phone` text DEFAULT NULL,
   `email` text DEFAULT NULL,
   `address` text DEFAULT NULL,
-  `date of birth` date DEFAULT NULL,
+  `Date of birth` int DEFAULT NULL,
   `joined` date DEFAULT NULL,
   `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -204,8 +213,8 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `f_name`, `l_name`, `phone`, `email`, `address`, `date of birth`, `joined`, `password`) VALUES
-(1, 's', NULL, NULL, 's', NULL, NULL, NULL, '$2y$10$A.FoPZ74JAmZfJXlPm29KuA2qPFff2qjCOwLbsV87LqBiA4nrbwZC');
+-- INSERT INTO `user` (`id`, `f_name`, `l_name`, `phone`, `email`, `address`, `date of birth`, `joined`, `password`) VALUES
+-- (1, 's', NULL, NULL, 's', NULL, NULL, NULL, '$2y$10$A.FoPZ74JAmZfJXlPm29KuA2qPFff2qjCOwLbsV87LqBiA4nrbwZC');
 
 --
 -- Indexes for dumped tables

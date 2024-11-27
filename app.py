@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_sqlalchemy import SQLAlchemy
 import os
 import re
-from retable2 import extract_table_data,extract_row_data
+from retable2 import extract_table_data
 
 app = Flask(__name__)
 app.secret_key='secret'

@@ -1,0 +1,14 @@
+import re
+def col(column):
+    if(column[0]=='`'):
+        cold=re.search("`(.*)`\s*(.*)",column)
+        cold=[cold.group(1),cold.group(2)]
+        cold1=re.findall("(\w+)\(?(\d+)?\)?",cold[1])
+        cold2=[(name,size) if size else name for name,size in cold1]
+        data=dict(name=cold[0],datatype=cold2[0],more_info=cold2[1:])
+    else:
+        cold=re.findall("(\w+)\s*\(?(\d+)?\)?",column)
+        cold1=[(name,size) if size else name for name,size in cold]
+        data=dict(name=cold1[0],datatype=cold1[1],more_info=cold1[2:])
+
+        print(f"\n{data}\n")
