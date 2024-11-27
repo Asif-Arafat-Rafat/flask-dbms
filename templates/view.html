@@ -11,12 +11,21 @@
         here i want to show the data from {{file[0]}}
     </h1>
     <pre>
-    {% for i in range(file[1][0]|length) %}
-        <h2>{{ file[1][0][i] }}</h2>
+    {% for i in file[1] %}
+        <!-- <h2>{{ i }}</h2> -->
         <table>
-            {%for j in file[1][1][i]%}
-                <th>{{ j[0] }}</th>
-            {% endfor %}
+            <tr>
+                
+                {%for keys in i.keys()%}
+                    <th>{{ keys }}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                {%for key in i.keys()%}
+                    <td>{{ i[key] }}</td>
+                {% endfor %}
+            </tr>
+
         </table>
     {% endfor %}
     

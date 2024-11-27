@@ -1,8 +1,64 @@
-table {
-    border-collapse: collapse;
-    width: 100%;
-    border: 3px solid black;
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #1e1e2f;
+    color: #ffffff;
+    margin: 0;
+    height: 100vh;
 }
-th{
-    border: 1px solid rgb(67, 64, 64);
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #252537;
+    color: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #3a3a5a;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+thead th {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 2px solid #454566;
+}
+
+tbody tr {
+    border-bottom: 1px solid #3a3a5a;
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #2c2c47;
+}
+
+tbody td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #2c2c3d;
+}
+
+tfoot {
+    background-color: #3a3a5a;
+    font-weight: bold;
+}
+
+tfoot td {
+    padding: 10px;
+    text-align: right;
+    border-top: 2px solid #454566;
+}
+
+/* Optional: Add smooth borders */
+td, th {
+    border-radius: 5px;
 }

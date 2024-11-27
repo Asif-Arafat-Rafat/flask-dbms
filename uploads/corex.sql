@@ -89,17 +89,47 @@ SET time_zone = "+00:00";
 -- Table structure for table `orders`
 --
 
-CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `order_date` datetime DEFAULT current_timestamp(),
-  `status` tinyint(1) NOT NULL,
-  `total_price` decimal(10,2) DEFAULT NULL,
-  `payment_method` varchar(50) DEFAULT NULL,
-  `delivery_address` text DEFAULT NULL,
-  `phone_number` varchar(20) DEFAULT NULL,
-  `delivery_time` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- CREATE TABLE `orders` (
+--   `order_id` int(11) NOT NULL,
+--   `user_id` int(11) DEFAULT NULL,
+--   `order_date` datetime DEFAULT current_timestamp(),
+--   `status` tinyint(1) NOT NULL,
+--   `total_price` decimal(10,2) DEFAULT NULL,
+--   `payment_method` varchar(50) DEFAULT NULL,
+--   `delivery_address` text DEFAULT NULL,
+--   `phone_number` varchar(20) DEFAULT NULL,
+--   `delivery_time` varchar(50) DEFAULT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `Employees` (
+    -- Basic Attributes
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,   -- Unique identifier with auto-increment
+    first_name VARCHAR(50) NOT NULL,             -- Required field for the employee's first name
+    last_name VARCHAR(50) NOT NULL,              -- Required field for the employee's last name
+    
+    -- Unique and Default Constraints
+    email VARCHAR(100) UNIQUE,                   -- Email must be unique
+    hire_date DATE DEFAULT CURRENT_DATE,         -- Default to current date if no value is provided
+    
+    -- Numeric and Decimal Types
+    salary DECIMAL(10, 2) CHECK (salary >= 0),   -- Salary must be non-negative
+    
+    -- Enum and Boolean
+    job_title ENUM('Manager', 'Developer', 'Analyst', 'Intern') DEFAULT 'Intern', -- Specific set of values
+    is_active BOOLEAN DEFAULT TRUE,             -- Boolean value with a default
+    
+    -- Foreign Key Example
+    department_id INT,                           -- Reference to the department
+    FOREIGN KEY (department_id) REFERENCES Departments(department_id) ON DELETE SET NULL,
+    
+    -- Index for Faster Search
+    -- INDEX (last_name),
+    
+    -- Timestamp Attributes
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Automatically set when a row is created
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Updated on row modification
+);
+
 
 --
 -- Dumping data for table `orders`
