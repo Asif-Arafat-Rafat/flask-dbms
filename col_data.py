@@ -11,4 +11,4 @@ def col(column):
         cold1=[(name,size) if size else name for name,size in cold]
         data=dict(name=cold1[0],datatype=cold1[1],more_info=cold1[2:])
 
-        print(f"\n{data}\n")
+    return data

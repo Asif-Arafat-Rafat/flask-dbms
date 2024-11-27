@@ -5,9 +5,9 @@ def extract_table_data(content):
   content=rmv_cmt(content)
   info=[]
   table_info = re.findall(r"CREATE TABLE `?(\w+)`? \((.*?);", content,re.DOTALL)
-  for table in table_info:
-    for t in table:
-      print(f"Table:{t}\n")
+  # for table in table_info:
+    # for t in table:
+      # print(f"Table:{t}\n")
   for t in range(len(table_info)):
     td={}
     table_name=re.findall(r"(.*)\s*,?",table_info[t][0])
@@ -20,9 +20,12 @@ def extract_table_data(content):
     # print(f"Table Array:{table_column}\n")
     col_data=re.findall(r"(\w+)(?:\((\d+)\))?",table_column[0])
     # print("\nAFTER FILTER")
+    dt=[]
     for tab in table_column:
       # print(f"Table col:{tab.strip(",")}")
-      col(tab.strip(","))
+      dt.append(col(tab.strip(",")))
+    print(dt)
+    # return dt
 #       print("\n\n")
       # col_name=re.findall(r"`([^`]+)`|([^\s`]+)",tab.strip(","))
       # print(f"Column Name:{col_name}")
@@ -61,7 +64,7 @@ def extract_table_data(content):
 #     td['Table Name']=table_name[0]
 #     td['Table Columns']=table_column[0]
 #     info.append(td)
-#   # prvint(f"Table Info:{info}\n")
+#   # print(f"Table Info:{info}\n")
 # #   for t in range(len(table_column)):
 #     # column_data=re.findall(r"(\w+)",table_column[t].strip(" "))
 #     # print(f"Column Data:{column_data}")
