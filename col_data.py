@@ -3,7 +3,7 @@ from get_keys import get_key
 def col(column):
     if(re.search(r"^PRIMARY KEY",column,re.IGNORECASE) or re.search(r"^FOREIGN KEY",column,re.IGNORECASE)):
         data=dict(more_info=re.findall(r"(\w+)",column))
-        print(data)
+        # print(data)
         # get_key(column.strip(","))
     elif(column[0]=='`'):
         cold=re.search("`(.*)`\s*(.*)",column)

@@ -1,8 +1,6 @@
 import re
-from removecmt import rmv_cmt
 from col_data import col
 def extract_table_data(content):
-  content=rmv_cmt(content)
   info=[]
   table_info = re.findall(r"CREATE TABLE `?(\w+)`? \((.*?);", content,re.DOTALL)
   for t in table_info:
@@ -12,7 +10,7 @@ def extract_table_data(content):
     table_info=list(filter(None,t))
     info.append(table_information)
   for i in info:
-    print("-------------------------------------------------------------------------------------------")
+    # print("-------------------------------------------------------------------------------------------")
     table_column=re.findall(r"(.*)\s*,?",i['columns'])
     table_column=list(filter(None,table_column))
     table_column=list(filter(lambda x: not x.startswith(")"),table_column))
@@ -22,12 +20,21 @@ def extract_table_data(content):
       tabs=tab.strip(" ")
       tabs=tabs.strip(',')
       tab=col(tabs)
-      print(f"stripped i:::{tab}")
-      print("::::")
-      # for c in col_name:
-      #   c=list(filter(None,c))
-      #   cold.append(c[0])
-      tbl.append(tab)
+      if 'key_assign' in tab.keys():
+
+        data_dict = {item['name']: item for item in tbl}
+        result = data_dict.get(tab['key_assign'])
+        result['key']=tab['key']
+        tab.pop('key_assign')
+        for key, value in tab.items():
+          if key not in result:
+            result[key] = value
+
+        # print(result)
+        # print("////")
+        # print(tab)
+      else:
+        tbl.append(tab)
     i['columns']=tbl
     # for i in info:
     #   # print(f"Table Name:{i['name']}")

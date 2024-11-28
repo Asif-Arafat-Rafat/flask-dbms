@@ -2,8 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_sqlalchemy import SQLAlchemy
 import os
 import re
-from retable2 import extract_table_data
-
+from create import extract_table_data
+from removecmt import rmv_cmt
+from fileSplit import fileSplit
 app = Flask(__name__)
 app.secret_key='secret'
 app.config['UPLOAD_FOLDER'] = './uploads'
@@ -17,6 +18,8 @@ def upload():
         flash('Invalid file type')
         return redirect(url_for('index'))
     file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+    content=read_sql_file(os.path.join('./uploads',filename))
+    data=fileSplit(filename,content)
     flash('File uploaded successfully')
     return redirect(url_for('index'))
   
@@ -34,14 +37,20 @@ def view(filename):
     sql_path=os.path.join('./uploads',filename)
     sql_content=read_sql_file(sql_path)
     data=extract_table_data(sql_content)
+    key=[]
     file=[filename,data]
-    # print(data)
-    return render_template('view.html',file=file)
+    for i in data:
+        for j in i['columns']:
+            for h in j.keys():
+                if h not in key:
+                    key.append(h)
+    return render_template('view.html',file=file,key=key)
 
 
 def read_sql_file(file_path):
     with open(file_path,'r') as file:
         content=file.read()
+        content=rmv_cmt(content)
     return content
 
 if __name__ == '__main__':

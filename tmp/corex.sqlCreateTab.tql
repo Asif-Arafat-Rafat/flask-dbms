@@ -1,0 +1,111 @@
+CREATE TABLE `admin` (
+  `admin_id` int(11) NOT NULL,
+  `username` text NOT NULL,
+  `password` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+________________________
+CREATE TABLE `carousel` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `front_image` text NOT NULL,
+  `left_image` text NOT NULL,
+  `right_image` text NOT NULL,
+  `title` text NOT NULL,
+  `sub_title` text NOT NULL,
+  `extra_info` text NOT NULL,
+  `added` date NOT NULL,
+  `position` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+________________________
+CREATE TABLE `cart` (
+  `cart_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `per_price` float NOT NULL,
+  `total_price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+________________________
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `order_date` datetime DEFAULT current_timestamp(),
+  `status` tinyint(1) NOT NULL,
+  `total_price` decimal(10,2) DEFAULT NULL,
+  `payment_method` varchar(50) DEFAULT NULL,
+  `delivery_address` text DEFAULT NULL,
+  `phone_number` varchar(20) DEFAULT NULL,
+  `delivery_time` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+________________________
+CREATE TABLE `Employees` (
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,   
+    first_name VARCHAR(50) NOT NULL,             
+    last_name VARCHAR(50) NOT NULL,              
+    email VARCHAR(100) UNIQUE,                   
+    hire_date DATE DEFAULT CURRENT_DATE,         
+    salary DECIMAL(10, 2) CHECK (salary >= 0),   
+    job_title ENUM('Manager', 'Developer', 'Analyst', 'Intern') DEFAULT 'Intern', 
+    is_active BOOLEAN DEFAULT TRUE,             
+    department_id INT,                           
+    FOREIGN KEY (department_id) REFERENCES Departments(department_id) ON DELETE SET NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 
+);
+________________________
+CREATE TABLE `order_items` (
+  `order_item_id` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `price_per_item` decimal(10,2) DEFAULT NULL,
+  `total_price` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+________________________
+CREATE TABLE `pc_repair` (
+  `query_id` int(11) NOT NULL,
+  `phone_number` text NOT NULL,
+  `urgency` text DEFAULT NULL,
+  `components` text DEFAULT NULL,
+  `details` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+________________________
+CREATE TABLE `products` (
+  `product_id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `image` text NOT NULL,
+  `category` text NOT NULL,
+  `brand` text NOT NULL,
+  `description` text NOT NULL,
+  `stock` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `b_price` int(11) NOT NULL,
+  `discount` int(11) DEFAULT NULL,
+  `sold` int(11) DEFAULT NULL,
+  `voted` int(11) DEFAULT NULL,
+  `score` int(11) DEFAULT NULL,
+  `varients` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+________________________
+CREATE TABLE `Users` (
+    id1 INT AUTO_INCREMENT PRIMARY KEY,        
+    username VARCHAR(50) NOT NULL UNIQUE,     
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    is_active BOOLEAN DEFAULT TRUE
+);
+________________________
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `f_name` text NOT NULL,
+  `l_name` text DEFAULT NULL,
+  `phone` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `Date of birth` int DEFAULT NULL,
+  `joined` date DEFAULT NULL,
+  `password` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+________________________

@@ -1,64 +1,83 @@
-body {
-    font-family: 'Roboto', Arial, sans-serif;
-    background-color: #1e1e2f;
-    color: #ffffff;
+/* General Reset */
+* {
     margin: 0;
-    height: 100vh;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
+/* Body Styling */
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Heading Styling */
+h1 {
+    text-align: center;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #555;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #252537;
-    color: #ffffff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    overflow: hidden;
+    margin-bottom: 20px;
 }
 
-thead {
-    background-color: #3a3a5a;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-}
-
-thead th {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 2px solid #454566;
-}
-
-tbody tr {
-    border-bottom: 1px solid #3a3a5a;
-    transition: background-color 0.3s ease;
-}
-
-tbody tr:hover {
-    background-color: #2c2c47;
-}
-
-tbody td {
-    padding: 12px 15px;
-    text-align: center;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #2c2c3d;
-}
-
-tfoot {
-    background-color: #3a3a5a;
-    font-weight: bold;
-}
-
-tfoot td {
+table th, table td {
+    border: 1px solid #ddd;
     padding: 10px;
-    text-align: right;
-    border-top: 2px solid #454566;
+    text-align: left;
 }
 
-/* Optional: Add smooth borders */
-td, th {
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #444;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Pre Block Styling */
+pre {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 15px;
     border-radius: 5px;
+    overflow: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    pre {
+        font-size: 14px;
+    }
 }
