@@ -12,21 +12,24 @@
     </h1>
     <pre>
     {% for i in file[1] %}
-        <!-- <h2>{{ i }}</h2> -->
+        <h2>{{ i['name'] }}</h2>
+        {% for j in i['columns'] %}
         <table>
-            <tr>
-                
-                {%for keys in i.keys()%}
+            <tr>                
+                {%for keys in j.keys()%}
                     <th>{{ keys }}</th>
                 {% endfor %}
             </tr>
             <tr>
-                {%for key in i.keys()%}
-                    <td>{{ i[key] }}</td>
+                {%for key in j.keys()%}
+                    <td>{{ j[key] }}</td>
                 {% endfor %}
             </tr>
-
         </table>
+
+        {% endfor %}
+
+
     {% endfor %}
     
     </pre>

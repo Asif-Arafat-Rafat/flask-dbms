@@ -166,13 +166,13 @@ CREATE TABLE `Employees` (
 -- Table structure for table `pc_repair`
 --
 
--- CREATE TABLE `pc_repair` (
---   `query_id` int(11) NOT NULL,
---   `phone_number` text NOT NULL,
---   `urgency` text DEFAULT NULL,
---   `components` text DEFAULT NULL,
---   `details` text DEFAULT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `pc_repair` (
+  `query_id` int(11) NOT NULL,
+  `phone_number` text NOT NULL,
+  `urgency` text DEFAULT NULL,
+  `components` text DEFAULT NULL,
+  `details` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pc_repair`

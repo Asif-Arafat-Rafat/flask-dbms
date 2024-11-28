@@ -1,7 +1,11 @@
 import re
 from get_keys import get_key
 def col(column):
-    if(column[0]=='`'):
+    if(re.search(r"^PRIMARY KEY",column,re.IGNORECASE) or re.search(r"^FOREIGN KEY",column,re.IGNORECASE)):
+        data=dict(more_info=re.findall(r"(\w+)",column))
+        print(data)
+        # get_key(column.strip(","))
+    elif(column[0]=='`'):
         cold=re.search("`(.*)`\s*(.*)",column)
         cold=[cold.group(1),cold.group(2)]
         cold1=re.findall("(\w+)\(?(\d+)?\)?",cold[1])
@@ -13,7 +17,11 @@ def col(column):
         cold1=[(name,size) if size else name for name,size in cold]
         data=dict(name=cold1[0],datatype=cold1[1],more_info=cold1[2:])
 
-    print("\n\n")
-    print(data)
-    print("\n\n")
-    return data|get_key(data['more_info'])
+    data= data|get_key(data['more_info'])
+    if data['key']=='PRIMARY':
+        data['default']='NOT NULL'
+    if 'not_null' in data:
+        data['default']='NOT NULL'
+    if 'default' not in data:
+        data['default']='NULL'
+    return data

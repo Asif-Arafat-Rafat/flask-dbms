@@ -35,6 +35,7 @@ def view(filename):
     sql_content=read_sql_file(sql_path)
     data=extract_table_data(sql_content)
     file=[filename,data]
+    # print(data)
     return render_template('view.html',file=file)
 
 

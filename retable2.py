@@ -5,26 +5,56 @@ def extract_table_data(content):
   content=rmv_cmt(content)
   info=[]
   table_info = re.findall(r"CREATE TABLE `?(\w+)`? \((.*?);", content,re.DOTALL)
-  for table in table_info:
-    for t in table:
-      print(f"Table:{t}\n")
-  for t in range(len(table_info)):
-    td={}
-    table_name=re.findall(r"(.*)\s*,?",table_info[t][0])
-    table_column=re.findall(r"(.*)\s*,?",table_info[t][1])
-    # print("\n\n\nBEFORE FILTER")
-    # for tab in table_column:
-      # print(f"Table col:{tab.strip(",")}")
+  for t in table_info:
+    table_information=dict()
+    table_information['name']=t[0]
+    table_information['columns']=t[1]
+    table_info=list(filter(None,t))
+    info.append(table_information)
+  for i in info:
+    print("-------------------------------------------------------------------------------------------")
+    table_column=re.findall(r"(.*)\s*,?",i['columns'])
     table_column=list(filter(None,table_column))
     table_column=list(filter(lambda x: not x.startswith(")"),table_column))
-    # print(f"Table Array:{table_column}\n")
-    col_data=re.findall(r"(\w+)(?:\((\d+)\))?",table_column[0])
-    # print("\nAFTER FILTER")
-    dt=[]
+
+    tbl=[]
     for tab in table_column:
-      print(f"Table col:{tab.strip(",")}")
-      dt.append(col(tab.strip(",")))
-    return dt
+      tabs=tab.strip(" ")
+      tabs=tabs.strip(',')
+      tab=col(tabs)
+      print(f"stripped i:::{tab}")
+      print("::::")
+      # for c in col_name:
+      #   c=list(filter(None,c))
+      #   cold.append(c[0])
+      tbl.append(tab)
+    i['columns']=tbl
+    # for i in info:
+    #   # print(f"Table Name:{i['name']}")
+    #   # print(f"Table Columns:{i['columns']}")
+    #   for j in i['columns']:
+    #     print(j)
+    #     print("::::")
+    #   print("-------------------------------------------------------------------------------------------")
+  return info
+
+  # for t in range(len(table_info)):
+  #   td={}
+  #   table_name=re.findall(r"(.*)\s*,?",table_info[t][0])
+  #   print(f"Start of Table{table_name[t][0]}\n")
+  #   table_column=re.findall(r"(.*)\s*,?",table_info[t][1])
+  #   for tab in table_column:
+  #     print(f"Table col:{tab.strip(",")}")
+  #   # print(f"Table Array:{table_column}\n")
+  #   col_data=re.findall(r"(\w+)(?:\((\d+)\))?",table_column[0])
+  #   # print("\nAFTER FILTER")
+  #   dt=[]
+  #   for tab in table_column:
+  #     print(f"Table col:{tab.strip(",")}")
+  #     dt.append(col(tab.strip(",")))
+  #   print(f"END of Table {table_name[t][0]}\n")
+
+  #   return dt
 #       print("\n\n")
       # col_name=re.findall(r"`([^`]+)`|([^\s`]+)",tab.strip(","))
       # print(f"Column Name:{col_name}")
