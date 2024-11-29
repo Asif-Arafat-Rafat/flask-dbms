@@ -1,6 +1,10 @@
 import re
 from col_data import col
-def extract_table_data(content):
+def extract_table_data(content,checked):
+  if checked is True:
+    chk=f"./tmp/{content}CreateTab.tql"
+    with open(chk,'r') as c:
+      content=c.read()
   info=[]
   table_info = re.findall(r"CREATE TABLE `?(\w+)`? \((.*?);", content,re.DOTALL)
   for t in table_info:

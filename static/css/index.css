@@ -1,0 +1,104 @@
+/* General body styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1c1c1c;
+    color: #eaeaea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container styling */
+.container {
+    max-width: 700px;
+    width: 90%;
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Section headings */
+h1 {
+    color: #4db8ff;
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    color: #eaeaea;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+h3.status-message {
+    color: #4db8ff;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+/* Upload button styling */
+.upload-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    background-color: #4db8ff;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.upload-btn:hover {
+    background-color: #008cff;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Uploaded files styling */
+.uploaded-files-section {
+    margin-top: 20px;
+}
+
+.file-link {
+    display: block;
+    text-decoration: none;
+    color: #4db8ff;
+    background-color: #333;
+    padding: 10px 15px;
+    border: 1px solid #4db8ff;
+    border-radius: 6px;
+    margin: 8px 0;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.file-link:hover {
+    background-color: #4db8ff;
+    color: #1c1c1c;
+    border-color: #1c1c1c;
+}
+
+/* Flash messages section */
+.messages-section {
+    margin-top: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .upload-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .file-link {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}

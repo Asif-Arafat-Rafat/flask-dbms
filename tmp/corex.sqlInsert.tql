@@ -1,0 +1,24 @@
+INSERT INTO `admin` (`admin_id`, `username`, `password`) VALUES
+(1, 'rafat', '@sif');
+_____
+INSERT INTO `carousel` (`id`, `name`, `front_image`, `left_image`, `right_image`, `title`, `sub_title`, `extra_info`, `added`, `position`) VALUES
+(1, 'Router', 'front.png', 'left.png', 'right.png', 'Stay Connected, Study Better', 'Strong signal, strong results.', 'Uninterrupted learning and fun, all day long', '2024-09-23', 1),
+(3, 'Fan', 'fan_front.png', 'fan_left.png', 'fan_right.png', 'Stay Cool, Stay Focused', 'Quiet comfort for your study sessions', 'Beat the heat and stay productive', '2024-09-23', 2),
+(4, 'Bulb', 'bulb.png', 'bulb-left.png', 'bulb-right.png', 'bulb', 'light', 'bright', '2024-09-23', 2);
+_____
+INSERT INTO `orders` (`order_id`, `user_id`, `order_date`, `status`, `total_price`, `payment_method`, `delivery_address`, `phone_number`, `delivery_time`) VALUES
+(2, 1, '2024-10-20 15:23:03', 1, 8.00, NULL, 'kuet', '017278356', NULL);
+_____
+INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`, `price_per_item`, `total_price`) VALUES
+(1, 2, 1, 4, 2.00, 8.00);
+_____
+INSERT INTO `pc_repair` (`query_id`, `phone_number`, `urgency`, `components`, `details`) VALUES
+(1, '01839497606', '24', 'Desktop', 'hello'),
+(2, '01839497606', '12', 'Desktop', 'testing');
+_____
+INSERT INTO `products` (`product_id`, `name`, `image`, `category`, `brand`, `description`, `stock`, `price`, `b_price`, `discount`, `sold`, `voted`, `score`, `varients`) VALUES
+(1, 't1', 'keyboard1.png', 'Keyboard', 'Unknown', 'sme', 2, 2, 1, NULL, NULL, NULL, NULL, NULL);
+_____
+INSERT INTO `user` (`id`, `f_name`, `l_name`, `phone`, `email`, `address`, `date of birth`, `joined`, `password`) VALUES
+(1, 's', NULL, NULL, 's', NULL, NULL, NULL, '$2y$10$A.FoPZ74JAmZfJXlPm29KuA2qPFff2qjCOwLbsV87LqBiA4nrbwZC');
+_____

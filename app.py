@@ -4,7 +4,7 @@ import os
 import re
 from create import extract_table_data
 from removecmt import rmv_cmt
-from fileSplit import fileSplit
+from fileSplit import fileSplit,preChk
 app = Flask(__name__)
 app.secret_key='secret'
 app.config['UPLOAD_FOLDER'] = './uploads'
@@ -32,11 +32,22 @@ def index():
     files= os.listdir('./uploads')
     return render_template('index.html',files=files)
 
+
+def read_sql_file(file_path):
+    with open(file_path,'r') as file:
+        content=file.read()
+        content=rmv_cmt(content)
+    return content
+
 @app.route('/view/<filename>')
 def view(filename):
     sql_path=os.path.join('./uploads',filename)
-    sql_content=read_sql_file(sql_path)
-    data=extract_table_data(sql_content)
+    sql_checker=preChk(filename)
+    if sql_checker is False:
+        sql_content=read_sql_file(filename)
+        data=extract_table_data(sql_content,False)
+    else:
+        data=extract_table_data(filename,True)
     key=[]
     file=[filename,data]
     for i in data:
@@ -46,12 +57,6 @@ def view(filename):
                     key.append(h)
     return render_template('view.html',file=file,key=key)
 
-
-def read_sql_file(file_path):
-    with open(file_path,'r') as file:
-        content=file.read()
-        content=rmv_cmt(content)
-    return content
 
 if __name__ == '__main__':
     app.run(debug=True,port=5001)

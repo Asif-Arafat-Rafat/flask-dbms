@@ -209,8 +209,8 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
--- INSERT INTO `products` (`product_id`, `name`, `image`, `category`, `brand`, `description`, `stock`, `price`, `b_price`, `discount`, `sold`, `voted`, `score`, `varients`) VALUES
--- (1, 't1', 'keyboard1.png', 'Keyboard', 'Unknown', 'sme', 2, 2, 1, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `products` (`product_id`, `name`, `image`, `category`, `brand`, `description`, `stock`, `price`, `b_price`, `discount`, `sold`, `voted`, `score`, `varients`) VALUES
+(1, 't1', 'keyboard1.png', 'Keyboard', 'Unknown', 'sme', 2, 2, 1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 

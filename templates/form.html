@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Upload File</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
 </head>
 <body>
-    <form action="./uploads" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-    </form>
+    <div class="upload-container">
+        <h1>Upload a File</h1>
+
+        <form action="./uploads" method="post" enctype="multipart/form-data" class="upload-form">
+            <label for="file" class="file-label">Choose a file to upload:</label>
+            <input type="file" name="file" id="file" class="file-input" required>
+        </form>
+
+        <div id="file-info" class="file-info"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
-<script src="{{url_for('static',filename='js/script.js')}}"></script>
 </html>
