@@ -1,17 +1,22 @@
 import re
 import ast
 import os
+from helper import printMe
 from validate import validate
 def fileSplit(filename,content):
     fileSplitCreate(filename,content)
     fileSplitAlter(filename,content)
     fileSplitInsert(filename,content)
 def preChk(filename):
-    con=chkFile(filename,'create') and chkFile(filename,'alter') and chkFile(filename,'insert')
+    con=[]
+    con.append(chkFile(filename,'create'))
+    con.append(chkFile(filename,'alter')) 
+    con.append(chkFile(filename,'insert'))
+    printMe(con)
     return con
     
 def chkFile(filename,action):
-    if action is 'create':
+    if action == 'create':
         file=f"./tmp/checker"
         with open(file,'r') as f:
             content=f.read()
@@ -19,7 +24,7 @@ def chkFile(filename,action):
             return True
         else:
             return False
-    elif action is 'alter':
+    elif action == 'alter':
         file=f"./tmp/checker"
         with open(file,'r') as f:
             content=f.read()
@@ -27,7 +32,7 @@ def chkFile(filename,action):
             return True
         else:
             return False
-    elif action is 'insert':
+    elif action == 'insert':
         file=f"./tmp/checker"
         with open(file,'r') as f:
             content=f.read()

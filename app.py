@@ -2,13 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_sqlalchemy import SQLAlchemy
 import os
 import re
+from alter import alter
 from create import extract_table_data
 from removecmt import rmv_cmt
 from fileSplit import fileSplit,preChk
 app = Flask(__name__)
 app.secret_key='secret'
 app.config['UPLOAD_FOLDER'] = './uploads'
-
 @app.route('/uploads',methods=['POST'])
 def upload():
     file=request.files['file']
@@ -43,11 +43,16 @@ def read_sql_file(file_path):
 def view(filename):
     sql_path=os.path.join('./uploads',filename)
     sql_checker=preChk(filename)
-    if sql_checker is False:
-        sql_content=read_sql_file(filename)
+    if sql_checker[0] is False:
+        sql_content=read_sql_file(sql_path)
         data=extract_table_data(sql_content,False)
     else:
         data=extract_table_data(filename,True)
+    if sql_checker[1] is False:
+        sql_content=read_sql_file(filename)
+        data1=alter(data,sql_content,False)
+    else:
+        data1=alter(data,filename,True)
     key=[]
     file=[filename,data]
     for i in data:
@@ -59,4 +64,4 @@ def view(filename):
 
 
 if __name__ == '__main__':
-    app.run(debug=True,port=5001)
+    app.run(debug=True,port=500)

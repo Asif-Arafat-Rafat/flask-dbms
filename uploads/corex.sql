@@ -166,7 +166,7 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`
 -- Table structure for table `pc_repair`
 --
 
-CREATE TABLE `pc_repair` (
+CREATE TABLE `pc repair` (
   `query_id` int(11) NOT NULL,
   `phone_number` text NOT NULL,
   `urgency` text DEFAULT NULL,
@@ -178,7 +178,7 @@ CREATE TABLE `pc_repair` (
 -- Dumping data for table `pc_repair`
 --
 
-INSERT INTO `pc_repair` (`query_id`, `phone_number`, `urgency`, `components`, `details`) VALUES
+INSERT INTO `pc repair` (`query_id`, `phone_number`, `urgency`, `components`, `details`) VALUES
 (1, '01839497606', '24', 'Desktop', 'hello'),
 (2, '01839497606', '12', 'Desktop', 'testing');
 

@@ -1,31 +1,35 @@
 import re
 from col_data import col
+from helper import printMe,garbagefilter
+import random
 def extract_table_data(content,checked):
   if checked is True:
     chk=f"./tmp/{content}CreateTab.tql"
     with open(chk,'r') as c:
       content=c.read()
   info=[]
-  table_info = re.findall(r"CREATE TABLE `?(\w+)`? \((.*?);", content,re.DOTALL)
+  content=ex_datatype(content)
+  sptype=content[1]
+  content=content[0]
+  pattern = r"CREATE TABLE\s+`?([\w\s]+)`?\s+\((.*?);"
+  table_info = re.findall(pattern, content, re.DOTALL)
   for t in table_info:
     table_information=dict()
     table_information['name']=t[0]
     table_information['columns']=t[1]
+    test(table_information['columns'])
     table_info=list(filter(None,t))
     info.append(table_information)
   for i in info:
-    # print("-------------------------------------------------------------------------------------------")
     table_column=re.findall(r"(.*)\s*,?",i['columns'])
     table_column=list(filter(None,table_column))
     table_column=list(filter(lambda x: not x.startswith(")"),table_column))
-
     tbl=[]
     for tab in table_column:
       tabs=tab.strip(" ")
       tabs=tabs.strip(',')
-      tab=col(tabs)
+      tab=col(tabs,sptype)
       if 'key_assign' in tab.keys():
-
         data_dict = {item['name']: item for item in tbl}
         result = data_dict.get(tab['key_assign'])
         result['key']=tab['key']
@@ -33,115 +37,77 @@ def extract_table_data(content,checked):
         for key, value in tab.items():
           if key not in result:
             result[key] = value
-
-        # print(result)
-        # print("////")
-        # print(tab)
       else:
         tbl.append(tab)
     i['columns']=tbl
-    # for i in info:
-    #   # print(f"Table Name:{i['name']}")
-    #   # print(f"Table Columns:{i['columns']}")
-    #   for j in i['columns']:
-    #     print(j)
-    #     print("::::")
-    #   print("-------------------------------------------------------------------------------------------")
   return info
+def ex_datatype(columns):
+  def varName(var):
+    return f"___{var.upper()}_{random.randint(000000,999999)}"
+  colower=columns.lower()
+  var=dict()
+  for sres in (re.findall(r"(enum\s*\(.*?\))",columns,re.IGNORECASE)):
+    varname=varName('ENUM')
+    var[varname]=sres
+    columns=columns.replace(sres,varname)
+  for sres in (re.findall(r"(set\s*\(.*?\))",columns,re.IGNORECASE)):
 
-  # for t in range(len(table_info)):
-  #   td={}
-  #   table_name=re.findall(r"(.*)\s*,?",table_info[t][0])
-  #   print(f"Start of Table{table_name[t][0]}\n")
-  #   table_column=re.findall(r"(.*)\s*,?",table_info[t][1])
-  #   for tab in table_column:
-  #     print(f"Table col:{tab.strip(",")}")
-  #   # print(f"Table Array:{table_column}\n")
-  #   col_data=re.findall(r"(\w+)(?:\((\d+)\))?",table_column[0])
-  #   # print("\nAFTER FILTER")
-  #   dt=[]
-  #   for tab in table_column:
-  #     print(f"Table col:{tab.strip(",")}")
-  #     dt.append(col(tab.strip(",")))
-  #   print(f"END of Table {table_name[t][0]}\n")
+    varname=varName('SET')
+    var[varname]=sres
+    columns=columns.replace(sres,varname)
+  for sres in (re.findall(r"(decimal\s*\(.*?\))",columns,re.IGNORECASE)):
+    varname=varName('DECI')
+    var[varname]=sres
+    columns=columns.replace(sres,varname)
+  if 'numeric' in colower:
+    sres=re.search(r"(numeric\s*\((.*?)\))",columns,re.IGNORECASE).group(1)
+    varname=varName('NUM')
+    var[varname]=sres
+    columns=columns.replace(sres,varname)
+  if 'index' in colower:
+    sres=re.search(r"(index\s*\((.*?)\))",columns,re.IGNORECASE)
+    varname=varName('IDX')
+    var[varname]=sres
+    columns=columns.replace(sres,varname)
+  if 'interval' in colower:
+    sres=re.search(r"(interval\s*\((.*?)\))",columns,re.IGNORECASE)
+    varname=varName('ITV')
+    var[varname]=sres.group(1)
+    columns=columns.replace(sres,varname)  
+  if 'geometry' in colower:
+    sres=re.search(r"(geometry\s*\((.*?)\))",columns,re.IGNORECASE)
+    varname=varName('GEO')
+    var[varname]=sres.group(1)
+    columns=columns.replace(sres,varname)  
+  return [columns,var]
 
-  #   return dt
-#       print("\n\n")
-      # col_name=re.findall(r"`([^`]+)`|([^\s`]+)",tab.strip(","))
-      # print(f"Column Name:{col_name}")
-      # not_null=re.search(r"NOT NULL",tab,re.IGNORECASE)
-      # defa=re.search(r"DEFAULT\s*(\w+)",tab,re.IGNORECASE)
-      # typ=re.search(rf"{col_name[0][0]}`?\s*(\w+)\s*?",tab).group()
-      # print(f"Type:{typ}")
-      # if(re.search(r"INT",typ,re.IGNORECASE)):
-      #   print(f"DataType: integer")
-      #   if(re.search(r'INT\((\d+)\)',tab,re.IGNORECASE)):
-      #     print(re.search(r'INT\((\d+)\)',tab,re.IGNORECASE).group(1))
-
-      # elif((re.search(r"VARCHAR",typ,re.IGNORECASE))):
-      #   print(f"DataType: varchar of size:{re.search(r"VARCHAR\((\d+)\)",tab,re.IGNORECASE).group(1)}")
-      # elif((re.search(r"TEXT",typ,re.IGNORECASE))):
-      #   print(f"DataType: text")
-      # elif((re.search(r"DATE",typ,re.IGNORECASE))):
-      #   print(f"DataType: date")
-      # elif((re.search(r"TIME",typ,re.IGNORECASE))):
-      #   print(f"DataType: time")
-      # elif((re.search(r"DATETIME",typ,re.IGNORECASE))):
-      #   print(f"DataType: datetime")
-      # elif((re.search(r"TIMESTAMP",typ,re.IGNORECASE))):
-      #   print(f"DataType: timestamp")
-      # elif((re.search(r"FLOAT",typ,re.IGNORECASE))):
-      #   print(f"DataType: float")
-      # print('\n')
-#       if(not_null):
-#         print(f"Default:NOT NULL")
-#       elif(defa):
-#         print(f"Default:{defa.group(1)}")
-#       else:
-#         print(f"Default:NULL")
-#     formater=[(name,size) if size else name for name,size in col_data]
-#     # print(f"Column Data:{formater}")
-#     td['Table Name']=table_name[0]
-#     td['Table Columns']=table_column[0]
-#     info.append(td)
-#   # print(f"Table Info:{info}\n")
-# #   for t in range(len(table_column)):
-#     # column_data=re.findall(r"(\w+)",table_column[t].strip(" "))
-#     # print(f"Column Data:{column_data}")
-# #   not_what=re.findall(r"NOT\s*(\w+)",table_column[0],re.DOTALL)
-# #   print(f"Not:{not_what}")
-# #   key=re.findall(r"(\w+)\*KEY",table_column[0])
-# #   fpk(content)
+def test(columns):
+  dt=ex_datatype(columns)
+  # print(dt[0])
+  # print(dt[1])
+  colower=columns.lower()
+  dataC=dict()
+  # mulC=re.findall(r"(\w+\s*\((.*\))",columns)
+  # print(mulC)
+  pat=columns.split(') E')[0]
+  pat=pat.replace(' (',"(")
+  cleaned_data = [item.strip() for item in pat]
   
-  # rdata=[]
-  # tableName=[]
-  # data=[]
-  # # for table in table_name:
-  # #   tableName.append(table[0])
-  # #   tdata=extract_row_data(table[2])
-  # #   rdata.append(tdata)
-  # data.append(tableName)
-  # data.append(rdata)
-#   # return data
-
-# def extract_row_data(content):
-#   data=re.findall(r"`(\w+)`\s+(.*?)\s+(\w+\s\w+)?\,?",content,re.DOTALL)
-#   return data
-
-# def insertData(tab,content):
-#   column=re.findall(rf'INSERT INTO\s*`{tab}`\s*\((.*?)\) VALUES\s*\(.*?\)\s*',content,re.DOTALL)
-#   values=re.findall(rf'INSERT INTO\s*`{tab}`\s*\(.*?\) VALUES\s*\((.*?)\)\s*',content,re.DOTALL)
-#   print(f"Column:{column}")
-#   print(f"Values:{values}")
+  # print(pat)
   
-# # insertData('admin',"""INSERT INTO `admin` (`admin_id`, `username`, `password`) VALUES
-# # (1, 'rafat', '@sif');""")
+  for data in cleaned_data:
+    # print(data)
+    dat=data.split('`')
+    dat=list(filter(None,dat))
+    if len(dat)>1:
+      dataC['name']=dat[0]
+      dataC['type']=dat[1]
+    else:
+      # print(f"Data::{data}")
+      dataa=data.split(' ')
+      dataa=list(filter(None,dataa))
+      # print(f"Dataa::{dataa}")
 
-# def fpk(content):
-#   pk=re.findall(r"TABLE `(\w+)`\s*.*?\s*(\w+)\s*KEY\s*\(`(\w+)",content,re.DOTALL)
-#   for i in range(len(pk)):
-#     if(pk[i][1]=='FOREIGN'):
-#       print(f"FKEY:{pk[i][2]}") 
-#       fk=re.findall(rf"FOREIGN\s+KEY\s+\(`{pk[i][2]}`\)\s+REFERENCES\s+`(\w+)` \(`(\w+)`\)",content,re.DOTALL)
-#       print(f"PK:{fk}")
-      
+    # print(dataC)
+
+

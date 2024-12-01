@@ -12,7 +12,7 @@ _____
 INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`, `price_per_item`, `total_price`) VALUES
 (1, 2, 1, 4, 2.00, 8.00);
 _____
-INSERT INTO `pc_repair` (`query_id`, `phone_number`, `urgency`, `components`, `details`) VALUES
+INSERT INTO `pc repair` (`query_id`, `phone_number`, `urgency`, `components`, `details`) VALUES
 (1, '01839497606', '24', 'Desktop', 'hello'),
 (2, '01839497606', '12', 'Desktop', 'testing');
 _____

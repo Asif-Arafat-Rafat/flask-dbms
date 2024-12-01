@@ -44,9 +44,10 @@ CREATE TABLE `Employees` (
     last_name VARCHAR(50) NOT NULL,              
     email VARCHAR(100) UNIQUE,                   
     hire_date DATE DEFAULT CURRENT_DATE,         
-    salary DECIMAL(10, 2) CHECK (salary >= 0),   
+    salary DECIMAL(10, 2) CHECK (salary >= 0),  
+    is_active ENUM('TRUE', 'FALSE') DEFAULT TRUE,             
+ 
     job_title ENUM('Manager', 'Developer', 'Analyst', 'Intern') DEFAULT 'Intern', 
-    is_active BOOLEAN DEFAULT TRUE,             
     department_id INT,                           
     FOREIGN KEY (department_id) REFERENCES Departments(department_id) ON DELETE SET NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
@@ -62,7 +63,7 @@ CREATE TABLE `order_items` (
   `total_price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 ________________________
-CREATE TABLE `pc_repair` (
+CREATE TABLE `pc repair` (
   `query_id` int(11) NOT NULL,
   `phone_number` text NOT NULL,
   `urgency` text DEFAULT NULL,
