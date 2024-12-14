@@ -63,10 +63,10 @@ def get_key_str(cmd):
             (k:=key.group(1).strip(" "))
         key=dict(key=f"PRIMARY KEY" ,key_assign=k)
         return key
-    if 'unique' in command:
-        key=re.findall(r"\s*unique(?:\s*key)?\s*\((.*)\)",cmd2)
-        # key=dict(key=f"UNIQUE KEY", assign=key.strip())
-        # print(key)
+    # if 'unique' in command:
+    #     key=re.findall(r"\s*unique(?:\s*key)?\s*\((.*)\)",cmd2)
+    #     key=dict(key=f"UNIQUE KEY", assign=key.strip())
+    #     # print(key)
     if 'foreign' in command:
         key=re.findall(r"\s*foreign\s*key\s*\((.*)\)\s*references\s*(.*)\s*\((.*)\)",cmd2)
         key=dict(key=f"FOREIGN KEY ({key[0][0]}) REFERENCES {key[0][1]}({key[0][2]})")

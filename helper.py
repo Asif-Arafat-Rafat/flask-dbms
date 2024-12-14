@@ -20,7 +20,7 @@ def printMe(prt):
 def garbagefilter():
     file=inspect.stack()[1]
     print(file.filename.split("/")[-1])
-    loc=f"./garbageCode/{file.filename.split("/")[-1]}"
+    loc=f"./garbageCode/{file.filename.split('/')[-1]}"
     with open(file.filename,'r') as f:
         content=f.read()
 

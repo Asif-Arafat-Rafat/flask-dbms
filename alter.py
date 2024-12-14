@@ -8,17 +8,26 @@ def alter(data,content,checked):
             content=c.read()
     pattern = r"ALTER TABLE\s+`?([\w\s]+)`?\s+\(?(.*?);"
     alt=re.findall(pattern,content,re.DOTALL|re.IGNORECASE)
-    for i in alt:
-        # printMe(f"for table ::{i[0]}")
-        # print(get_key_str(i[1]))
-        l1=(i[1].split(","))
-        for l in l1:
-            l=l.lower()
-            if "foreign" in l:
-                for j in data:
-                    if i[0]==j['name']:
-                        # print("")
-                            (switchkey(j,listalter(l)))
+    data1=dict()
+    for a in alt:
+        keyfind = re.findall(r"\b(PRIMARY|UNIQUE)\b\s+KEY\s*(?:`?\w+`?)?\s*\(`?(\w+)`?\)", a[1], re.IGNORECASE)
+        if a[0] in data1.keys():
+            if keyfind:
+                data1[a[0]].append(keyfind)
+        else:
+            data1[a[0]]=keyfind
+    # return (data1)
+    # for i in alt:
+    #     # printMe(f"for table ::{i[0]}")
+    #     # print(get_key_str(i[1]))
+    #     l1=(i[1].split(","))
+    #     for l in l1:
+    #         l=l.lower()
+    #         if "foreign" in l:
+    #             for j in data:
+    #                 if i[0]==j['name']:
+    #                     # print("")
+    #                         (switchkey(j,listalter(l)))
             
     # table=[]
     # for a in alt:

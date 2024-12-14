@@ -14,9 +14,7 @@ def extract_table_data(content,checked):
   pattern = r"CREATE TABLE\s+`?([\w\s]+)`?\s+\((.*?);"
   table_info = re.findall(pattern, content, re.DOTALL)
   for t in table_info:
-    table_information=dict()
-    table_information['name']=t[0]
-    table_information['columns']=t[1]
+    table_information={'name':t[0],'columns':t[1]}
     test(table_information['columns'])
     table_info=list(filter(None,t))
     info.append(table_information)
@@ -45,7 +43,7 @@ def ex_datatype(columns):
   def varName(var):
     return f"___{var.upper()}_{random.randint(000000,999999)}"
   colower=columns.lower()
-  var=dict()
+  var={}
   for sres in (re.findall(r"(enum\s*\(.*?\))",columns,re.IGNORECASE)):
     varname=varName('ENUM')
     var[varname]=sres
@@ -60,7 +58,7 @@ def ex_datatype(columns):
     var[varname]=sres
     columns=columns.replace(sres,varname)
   if 'numeric' in colower:
-    sres=re.search(r"(numeric\s*\((.*?)\))",columns,re.IGNORECASE).group(1)
+    sres = re.search(r"(numeric\s*\((.*?)\))",columns,re.IGNORECASE)[1]
     varname=varName('NUM')
     var[varname]=sres
     columns=columns.replace(sres,varname)
@@ -72,12 +70,12 @@ def ex_datatype(columns):
   if 'interval' in colower:
     sres=re.search(r"(interval\s*\((.*?)\))",columns,re.IGNORECASE)
     varname=varName('ITV')
-    var[varname]=sres.group(1)
+    var[varname]=sres[1]
     columns=columns.replace(sres,varname)  
   if 'geometry' in colower:
     sres=re.search(r"(geometry\s*\((.*?)\))",columns,re.IGNORECASE)
     varname=varName('GEO')
-    var[varname]=sres.group(1)
+    var[varname]=sres[1]
     columns=columns.replace(sres,varname)  
   return [columns,var]
 
@@ -86,7 +84,7 @@ def test(columns):
   # print(dt[0])
   # print(dt[1])
   colower=columns.lower()
-  dataC=dict()
+  dataC={}
   # mulC=re.findall(r"(\w+\s*\((.*\))",columns)
   # print(mulC)
   pat=columns.split(') E')[0]

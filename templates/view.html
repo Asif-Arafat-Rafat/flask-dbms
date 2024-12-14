@@ -11,27 +11,10 @@
         here i want to show the data from {{file[0]}}
     </h1>
     <pre>
-    {%set o=1%}
-    {% for i in file[1] %}
-        <h2>{{loop.index}}{{ i['name'] }}</h2>
-        <table>
-        {%for k in key:%}
-        <th>{{ k }}</th>
-        {% endfor %}
-        {% for j in i['columns'] %}
-            <tr>
-                {%for k in key%}
-                    {% if k in j.keys() %}
-                    <td>{{ j[k] }}</td>
-                    {% else %}
-                    <td>-</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-
-        {% endfor %}
-    </table>
-    {%set o=o+1%}
+    {% for k,v in file[1].items() %}
+        <h2>{{k}}</h2>
+        <h3>{{v}}</h3>
+       
     {% endfor %}
     </pre>
 </body>

@@ -3,9 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 import re
 from alter import alter
-from create import extract_table_data
+from createSql import extract_table_data
 from removecmt import rmv_cmt
 from fileSplit import fileSplit,preChk
+from data_change import data_assign
 app = Flask(__name__)
 app.secret_key='secret'
 app.config['UPLOAD_FOLDER'] = './uploads'
@@ -26,12 +27,11 @@ def upload():
 @app.route('/form',methods=['GET','POST'])
 def form():
     return render_template('form.html')
-  
+
 @app.route('/')
 def index():
     files= os.listdir('./uploads')
     return render_template('index.html',files=files)
-
 
 def read_sql_file(file_path):
     with open(file_path,'r') as file:
@@ -48,18 +48,15 @@ def view(filename):
         data=extract_table_data(sql_content,False)
     else:
         data=extract_table_data(filename,True)
-    if sql_checker[1] is False:
-        sql_content=read_sql_file(filename)
-        data1=alter(data,sql_content,False)
-    else:
-        data1=alter(data,filename,True)
+    # if sql_checker[1] is False:
+    #     sql_content=read_sql_file(filename)
+    #     data1=alter(data,sql_content,False)
+    # else:
+    #     data1=alter(data,filename,True)
+    # # data_assign(data,data1)
     key=[]
     file=[filename,data]
-    for i in data:
-        for j in i['columns']:
-            for h in j.keys():
-                if h not in key:
-                    key.append(h)
+    key=data.keys()
     return render_template('view.html',file=file,key=key)
 
 
