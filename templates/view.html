@@ -12,10 +12,22 @@
     </h1>
     <pre>
     {% for k,v in file[1].items() %}
-        <h2>{{k}}</h2>
-        <h3>{{v}}</h3>
-       
+        <h2>Table Name:{{k.strip("`")}}</h2>
+        <table>
+            {%for key in keys%}
+            <th>{{key}}</th>
+            {%endfor%}
+            {% for i in v %}
+            <tr>
+                {%for key in keys%}
+                <td>{{i[key]}}</td>
+                {%endfor%}
+            </tr>
+            {%endfor%}
+            
+        </table>
     {% endfor %}
+    
     </pre>
 </body>
 </html>

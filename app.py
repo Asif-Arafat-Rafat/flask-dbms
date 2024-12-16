@@ -48,6 +48,7 @@ def view(filename):
         data=extract_table_data(sql_content,False)
     else:
         data=extract_table_data(filename,True)
+    
     # if sql_checker[1] is False:
     #     sql_content=read_sql_file(filename)
     #     data1=alter(data,sql_content,False)
@@ -56,8 +57,8 @@ def view(filename):
     # # data_assign(data,data1)
     key=[]
     file=[filename,data]
-    key=data.keys()
-    return render_template('view.html',file=file,key=key)
+    key=['name','DataType','Default','Key']
+    return render_template('view.html',file=file,keys=key)
 
 
 if __name__ == '__main__':
