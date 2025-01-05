@@ -1,3 +1,3 @@
-venv/
+dbmsenv/
 __pycache__/
 .gitignore

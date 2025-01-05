@@ -1,5 +1,4 @@
 import re
-import ast
 import os
 from helper import printMe
 from validate import validate
@@ -17,7 +16,8 @@ def preChk(filename):
     
 def chkFile(filename,action):
     if action == 'create':
-        file=f"./tmp/checker"
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        file=os.path.join(script_dir,'tmp','checker')
         with open(file,'r') as f:
             content=f.read()
         if re.search(rf"___\s*{filename}:::create\s*___",content):
@@ -25,7 +25,8 @@ def chkFile(filename,action):
         else:
             return False
     elif action == 'alter':
-        file=f"./tmp/checker"
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        file=os.path.join(script_dir,'tmp','checker')
         with open(file,'r') as f:
             content=f.read()
         if re.search(rf"___\s*{filename}:::alter\s*___",content):
@@ -33,7 +34,8 @@ def chkFile(filename,action):
         else:
             return False
     elif action == 'insert':
-        file=f"./tmp/checker"
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        file=os.path.join(script_dir,'tmp','checker')
         with open(file,'r') as f:
             content=f.read()
         if re.search(rf"___\s*{filename}:::insert\s*___",content):
@@ -45,8 +47,9 @@ def chkFile(filename,action):
     
 def fileSplitCreate(filename,content):
     cre=re.findall(r"CREATE TABLE `?.*?`?\s*\(.*?\)(?:\s*ENGINE=.*?)?\s*;",content,re.DOTALL)
-    loc=f"./tmp/{filename}CreateTab.tql"
-    chk=f"./tmp/checker"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    chk=os.path.join(script_dir,'tmp','checker')
+    loc=os.path.join(script_dir,'tmp',f"{filename}CreateTab.tql")
     with open(loc,'w') as f:
         f.write("")
     for c in cre:
@@ -64,8 +67,9 @@ def fileSplitCreate(filename,content):
         
 def fileSplitInsert(filename,content):
     cre=re.findall(r"INSERT INTO `?.*?`?\s*\(.*?\)\s*;",content,re.DOTALL)
-    loc=f"./tmp/{filename}Insert.tql"
-    chk=f"./tmp/checker"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    chk=os.path.join(script_dir,'tmp','checker')
+    loc=os.path.join(script_dir,'tmp',f"{filename}Insert.tql")
     with open(loc,'w') as f:
         f.write("")
     for c in cre:
@@ -80,8 +84,9 @@ def fileSplitInsert(filename,content):
 
 def fileSplitAlter(filename,content):
     cre=re.findall(r"ALTER Table\s*.*?;",content,re.DOTALL|re.IGNORECASE)
-    loc=f"./tmp/{filename}Alter.tql"
-    chk=f"./tmp/checker"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    chk=os.path.join(script_dir,'tmp','checker')
+    loc=os.path.join(script_dir,'tmp',f"{filename}Alter.tql")
     with open(loc,'w') as f:
         f.write("")
     for c in cre:
